@@ -11,6 +11,11 @@ client.timing('example.stat.1', 350)
 client.increment('example.stat.2')
 client.decrement('example.stat.2')
 
+Documentation
+-------------
+
+http://rdoc.info/github/tomtaylor/statsd-client/master/frames
+
 Copyright
 ---------
 
