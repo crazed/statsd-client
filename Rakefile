@@ -15,14 +15,10 @@ Jeweler::Tasks.new do |gem|
   gem.name = "statsd-client"
   gem.homepage = "http://github.com/tomtaylor/statsd-client"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
+  gem.summary = "Client for statds"
   gem.description = %Q{TODO: longer description of your gem}
   gem.email = "tom@tomtaylor.co.uk"
   gem.authors = ["Tom Taylor"]
-  # Include your dependencies below. Runtime dependencies are required when using your gem,
-  # and development dependencies are only needed for development (ie running rake tasks, tests, etc)
-  #  gem.add_runtime_dependency 'jabber4r', '> 0.1'
-  #  gem.add_development_dependency 'rspec', '> 1.2.3'
 end
 Jeweler::RubygemsDotOrgTasks.new
 
