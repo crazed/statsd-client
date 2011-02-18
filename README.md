@@ -14,7 +14,7 @@ Usage
 Documentation
 -------------
 
-[http://rdoc.info/github/tomtaylor/statsd-client/master/frames]
+[On rdoc.info](http://rdoc.info/github/tomtaylor/statsd-client/master/frames)
 
 Copyright
 ---------
