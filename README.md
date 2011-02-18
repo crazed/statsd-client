@@ -6,15 +6,15 @@ A Ruby client for [StatsD](https://github.com/etsy/statsd), Etsy's daemon for ea
 Usage
 -----
 
-client = Statsd::Client.new(host, port)
-client.timing('example.stat.1', 350)
-client.increment('example.stat.2')
-client.decrement('example.stat.2')
+    client = Statsd::Client.new(host, port)
+    client.timing('example.stat.1', 350)
+    client.increment('example.stat.2')
+    client.decrement('example.stat.2')
 
 Documentation
 -------------
 
-http://rdoc.info/github/tomtaylor/statsd-client/master/frames
+[http://rdoc.info/github/tomtaylor/statsd-client/master/frames]
 
 Copyright
 ---------
