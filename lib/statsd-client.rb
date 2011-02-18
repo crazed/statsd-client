@@ -8,8 +8,8 @@ module Statsd
 
     # Initializes a Statsd client.
     #
-    # @param [String] the host name of the Statsd server.
-    # @param [Integer] the port which the Statds server is running on.
+    # @param [String] host
+    # @param [Integer] port
     def initialize(host = 'localhost', port = 8125)
       @host, @port = host, port
     end
