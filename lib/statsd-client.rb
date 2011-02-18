@@ -16,9 +16,9 @@ module Statsd
 
     # Sends timing statistics.
     #
-    # @param [String] the name of statistic being updated
-    # @param [Integer] the time in miliseconds
-    # @param [Integer, Float] the sample rate
+    # @param [Array, String] stats name of statistic(s) being updated
+    # @param [Integer] time in miliseconds
+    # @param [Integer, Float] sample_rate
     def timing(stats, time, sample_rate = 1)
       data = "#{time}|ms"
       update_stats(stats, data, sample_rate)
@@ -26,25 +26,25 @@ module Statsd
 
     # Increments a counter
     #
-    # @param [String] the name of the statistic being updated
-    # @param [Integer, Float] the sample rate
+    # @param [Array, String] stats name of statistic(s) being updated
+    # @param [Integer, Float] sample_rate
     def increment(stats, sample_rate = 1)
       update_stats(stats, 1, sample_rate)
     end
 
     # Decrements a counter
     #
-    # @param [String] the name of the statistic being updated
-    # @param [Integer, Float] the sample rate
+    # @param [Array, String] stats name of statistic(s) being updated
+    # @param [Integer, Float] sample_rate
     def decrement(stats, sample_rate = 1)
       update_stats(stats, -1, sample_rate)
     end
 
     # Updates one or more counters by an arbitrary amount
     #
-    # @param [Array, String] the statistics being updated
-    # @param [Integer, Float] the amount being updated
-    # @param [Integer, Float] the sample rate
+    # @param [Array, String] stats name of statistic(s) being updated
+    # @param [Integer, Float] delta
+    # @param [Integer, Float] sample_rate
     def update_stats(stats, delta = 1, sample_rate = 1)
       stats = [stats] unless stats.kind_of?(Array)
 
