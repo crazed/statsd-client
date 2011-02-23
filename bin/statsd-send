@@ -4,7 +4,7 @@ require 'rubygems'
 require 'optparse'
 $LOAD_PATH.unshift(File.dirname(__FILE__) + '/../lib')
 
-require 'statsd-client'
+require 'statsd/client'
 
 options = {}
 OptionParser.new do |opts|
