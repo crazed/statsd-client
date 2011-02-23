@@ -1,9 +1,69 @@
 # @author Tom Taylor
 require 'socket'
+require 'yaml'
 
-module Statsd
+class Statsd
+  class << self 
+    def increment(metric, options={})
+      value = options.is_a?(Fixnum) ? options : (options[:by] || 1)
+      client.update_stats(metric, value*factor, (options[:sample_rate] || 1))
+    end
+    alias_method :inc, :increment
+  
+    def decrement(metric, options={})
+      value = options.is_a?(Fixnum) ? options : (options[:by] || 1)
+      client.update_stats(metric, value*factor*(-1), (options[:sample_rate] || 1))
+    end
+    alias_method :dec, :decrement
+
+    def timing(metric, value)
+      client.timing(metric, value)
+    end
+    alias_method :time, :timing
+    
+    def client
+      return Statsd::DummyClient if deactivated?
+      @client ||= Statsd::Client.new(host, port)
+    end
+  
+    def config
+      home = File.expand_path('~')
+      files = ["#{home}/.statsd-client.yml", '/etc/statsd-client.yml']
+      files.each do |file|
+        return YAML.load(File.read(file)) if File.exist?(file)
+      end
+      raise "No config found: #{files.join(' or ')}"
+    end
+  
+    def host
+      config['host'] || 'localhost'
+    end
+  
+    def port
+      config['port'] || 8125
+    end
+  
+    # statds reports with default configs 1/10 of actual value
+    def factor
+      config['factor'] || 10
+    end
+  
+    def deactivated?
+      config['deactivated'] || false
+    end
+  end
+  
+  class DummyClient
+    def self.timing(*args)
+    end
+    
+    def self.update_stats(*args)
+    end
+  end
+  
+  
   class Client
-
+    VERSION = File.read( File.join(File.dirname(__FILE__),'..','VERSION') ).strip
     attr_reader :host, :port
 
     # Initializes a Statsd client.
@@ -63,6 +123,7 @@ module Statsd
     private
 
     def send(data, sample_rate = 1)
+      puts "sending #{data}"
       sampled_data = {}
       
       if sample_rate < 1

@@ -1,0 +1,5 @@
+---
+host: localhost
+factor: 10
+port: 8125
+deactivated: false
