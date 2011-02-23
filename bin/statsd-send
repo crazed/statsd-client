@@ -25,9 +25,6 @@ BANNER
   opts.on('--by x','Value for inc/dec') do |value|
     options[:by] = value.to_i
   end
-  opts.on('--host x', 'Use this host, when reporting') do |host|
-    options[:host] = host
-  end
 end.parse!
   
 command, metric, value = ARGV[0..2]
