@@ -16,7 +16,7 @@ Jeweler::Tasks.new do |gem|
   gem.homepage = "http://github.com/dawanda/statsd-client"
   gem.license = "MIT"
   gem.summary = "Client for statds"
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.description = %Q{A Ruby client for statsd}
   gem.email = "tom@tomtaylor.co.uk"
   gem.authors = ["Tom Taylor"]
 end
