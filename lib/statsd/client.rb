@@ -63,7 +63,7 @@ class Statsd
   
   
   class Client
-    VERSION = File.read( File.join(File.dirname(__FILE__),'..','VERSION') ).strip
+    VERSION = File.read( File.join(File.dirname(__FILE__),'..', '..', 'VERSION') ).strip
     attr_reader :host, :port
 
     # Initializes a Statsd client.
@@ -123,7 +123,6 @@ class Statsd
     private
 
     def send(data, sample_rate = 1)
-      puts "sending #{data}"
       sampled_data = {}
       
       if sample_rate < 1
