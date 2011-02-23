@@ -1,0 +1,44 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'optparse'
+$LOAD_PATH.unshift(File.dirname(__FILE__) + '/../lib')
+
+require 'statsd-client'
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = <<BANNER
+Report to statsd (https://github.com/etsy/statsd) from console
+Needs statsd-client.yml in /etc or ~/, see statsd-client.example.yml for example
+
+Usage:
+  statsd-send inc users.login --by=5 
+  statsd-send dec users.login --by=5 
+  statsd-send time pages.homepage 333
+
+Options:
+BANNER
+
+  opts.on("-h", "--help","Show this.") { puts opts; exit }
+  opts.on('-v', '--version','Show Version'){ puts Statsd::Client::VERSION; exit}
+  opts.on('--by x','Value for inc/dec') do |value|
+    options[:by] = value.to_i
+  end
+  opts.on('--host x', 'Use this host, when reporting') do |host|
+    options[:host] = host
+  end
+end.parse!
+  
+command, metric, value = ARGV[0..2]
+if metric.to_s.empty?
+  puts "Usage instructions: statsd-send --help"
+  exit
+end
+
+if command == 'time'
+  Statsd.time(metric, value)
+else
+  Statsd.send(command, metric, options)
+end
+
