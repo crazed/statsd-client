@@ -45,7 +45,7 @@ class Statsd
   
     # statds reports with default configs 1/10 of actual value
     def factor
-      config['factor'] || 10
+      config['factor'] || 1
     end
   
     def deactivated?
