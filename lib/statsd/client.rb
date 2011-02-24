@@ -5,14 +5,26 @@ require 'yaml'
 class Statsd
   class << self 
     def increment(metric, options={})
-      value = options.is_a?(Fixnum) ? options : (options[:by] || 1)
-      client.update_stats(metric, value*factor, (options[:sample_rate] || 1))
+      if options.is_a?(Fixnum)
+        value = options
+        sample_rate = 1
+      else
+        value = (options[:by] || 1)
+        sample_rate = (options[:sample_rate] || 1)
+      end
+      client.update_stats(metric, value*factor, sample_rate)
     end
     alias_method :inc, :increment
   
     def decrement(metric, options={})
-      value = options.is_a?(Fixnum) ? options : (options[:by] || 1)
-      client.update_stats(metric, value*factor*(-1), (options[:sample_rate] || 1))
+      if options.is_a?(Fixnum)
+        value = options
+        sample_rate = 1
+      else
+        value = (options[:by] || 1)
+        sample_rate = (options[:sample_rate] || 1)
+      end
+      client.update_stats(metric, value*factor*(-1), sample_rate)
     end
     alias_method :dec, :decrement
 
@@ -123,6 +135,7 @@ class Statsd
     private
 
     def send(data, sample_rate = 1)
+      puts "sending #{data} with sample #{sample_rate}"
       sampled_data = {}
       
       if sample_rate < 1
