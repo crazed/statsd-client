@@ -135,7 +135,7 @@ class Statsd
     private
 
     def send(data, sample_rate = 1)
-      puts "sending #{data} with sample #{sample_rate}"
+      #puts "sending #{data} with sample #{sample_rate}"
       sampled_data = {}
       
       if sample_rate < 1
